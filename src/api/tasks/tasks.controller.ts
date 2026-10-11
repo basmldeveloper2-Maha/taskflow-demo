@@ -1,11 +1,12 @@
 import type { NextFunction, Request, Response } from 'express';
 import { badRequest } from '../../lib/app-error';
-import { createNewTask, listTasks } from '../../services/task-service';
-import { toTaskDto } from './tasks.dto';
 import {
-  createTaskBodySchema,
-  listTasksQuerySchema,
-} from './tasks.schema';
+  createNewTask,
+  getTaskById,
+  listTasks,
+} from '../../services/task-service';
+import { toTaskDto } from './tasks.dto';
+import { createTaskBodySchema, listTasksQuerySchema } from './tasks.schema';
 
 /**
  * Thin controllers: validate input with Zod at the top, delegate to the
@@ -25,6 +26,19 @@ export const getTasks = async (
 
     const tasks = await listTasks(parsed.data);
     res.json({ data: tasks.map(toTaskDto) });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getTask = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const task = await getTaskById(req.params.id);
+    res.json({ data: toTaskDto(task) });
   } catch (error) {
     next(error);
   }

@@ -45,6 +45,30 @@ describe('GET /v1/tasks', () => {
   });
 });
 
+describe('GET /v1/tasks/:id', () => {
+  it('returns a single task DTO', async () => {
+    mockedRepo.findTaskById.mockResolvedValue(sampleTask);
+
+    const res = await request(app).get('/v1/tasks/task_1');
+
+    expect(res.status).toBe(200);
+    expect(res.body.data).toMatchObject({
+      id: 'task_1',
+      title: 'Write the deck',
+      status: 'todo',
+      projectId: 'proj_1',
+    });
+  });
+
+  it('returns 404 when the task does not exist', async () => {
+    mockedRepo.findTaskById.mockResolvedValue(null);
+
+    const res = await request(app).get('/v1/tasks/missing');
+
+    expect(res.status).toBe(404);
+  });
+});
+
 describe('POST /v1/tasks', () => {
   it('creates a task and returns 201', async () => {
     mockedRepo.createTask.mockResolvedValue(sampleTask);

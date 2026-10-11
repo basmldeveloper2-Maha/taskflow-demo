@@ -23,7 +23,10 @@ describe('GET /v1/comments', () => {
     const res = await request(app).get('/v1/comments?taskId=task_1');
 
     expect(res.status).toBe(200);
-    expect(res.body.data[0]).toMatchObject({ id: 'comment_1', taskId: 'task_1' });
+    expect(res.body.data[0]).toMatchObject({
+      id: 'comment_1',
+      taskId: 'task_1',
+    });
   });
 
   it('rejects a missing taskId with 400', async () => {

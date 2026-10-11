@@ -1,5 +1,16 @@
 import type { Task, TaskStatus } from '@prisma/client';
-import { createTask, findManyTasks } from '../db/tasks.repo';
+import { notFound } from '../lib/app-error';
+import { daysAgo } from '../lib/dates';
+import { logger } from '../lib/logger';
+import {
+  archiveTasksCompletedBefore,
+  createTask,
+  findManyTasks,
+  findTaskById,
+} from '../db/tasks.repo';
+
+/** Tasks are eligible for archiving this many days after completion. */
+const ARCHIVE_AFTER_DAYS = 30;
 
 /**
  * Task business logic — pure functions, no req/res. All persistence goes
@@ -24,10 +35,32 @@ export interface CreateTaskInput {
   projectId: string;
 }
 
-export const createNewTask = (input: CreateTaskInput): Promise<Task> =>
-  createTask({
+export const createNewTask = async (
+  input: CreateTaskInput,
+): Promise<Task> => {
+  const task = await createTask({
     title: input.title,
     description: input.description,
     status: input.status,
     project: { connect: { id: input.projectId } },
   });
+  logger.info({ taskId: task.id, projectId: task.projectId }, 'Task created');
+  return task;
+};
+
+export const getTaskById = async (id: string): Promise<Task> => {
+  const task = await findTaskById(id);
+  if (!task) {
+    throw notFound(`Task ${id} not found`);
+  }
+  return task;
+};
+
+/**
+ * Archives tasks that have been `done` for more than
+ * `ARCHIVE_AFTER_DAYS` days. Returns the number of tasks archived.
+ */
+export const archiveOldCompletedTasks = (
+  now: Date = new Date(),
+): Promise<number> =>
+  archiveTasksCompletedBefore(daysAgo(ARCHIVE_AFTER_DAYS, now));

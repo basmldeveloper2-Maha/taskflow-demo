@@ -6,16 +6,16 @@ with `CLAUDE.md`**.
 
 ## Stack
 
-| Concern     | Choice                          |
-| ----------- | ------------------------------- |
-| Runtime     | Node 20.11 LTS                  |
-| Language    | TypeScript 5.4 (strict)         |
-| HTTP        | Express 4.19                    |
-| Database    | PostgreSQL 16 + Prisma 5.11     |
-| Validation  | Zod 3.22                        |
-| Testing     | Jest 29 + supertest 6           |
-| Lint/format | ESLint 8 + Prettier 3           |
-| Package mgr | pnpm 8                          |
+| Concern     | Choice                      |
+| ----------- | --------------------------- |
+| Runtime     | Node 20.11 LTS              |
+| Language    | TypeScript 5.4 (strict)     |
+| HTTP        | Express 4.19                |
+| Database    | PostgreSQL 16 + Prisma 5.11 |
+| Validation  | Zod 3.22                    |
+| Testing     | Jest 29 + supertest 6       |
+| Lint/format | ESLint 8 + Prettier 3       |
+| Package mgr | pnpm 8                      |
 
 ## Getting started
 
@@ -37,15 +37,15 @@ The API listens on `http://localhost:3000`. Health check: `GET /v1/health`.
 
 ## Commands
 
-| Command           | What it does                              |
-| ----------------- | ----------------------------------------- |
-| `pnpm dev`        | Start with hot reload (nodemon) on `:3000`|
-| `pnpm build`      | Type-check and emit `dist/` via `tsc`     |
-| `pnpm start`      | Run the compiled server from `dist/`      |
-| `pnpm test`       | Run the Jest + supertest suite            |
-| `pnpm test:watch` | Run tests in watch mode                   |
-| `pnpm lint`       | Lint with ESLint                          |
-| `pnpm lint:fix`   | Lint and auto-fix                         |
+| Command           | What it does                               |
+| ----------------- | ------------------------------------------ |
+| `pnpm dev`        | Start with hot reload (nodemon) on `:3000` |
+| `pnpm build`      | Type-check and emit `dist/` via `tsc`      |
+| `pnpm start`      | Run the compiled server from `dist/`       |
+| `pnpm test`       | Run the Jest + supertest suite             |
+| `pnpm test:watch` | Run tests in watch mode                    |
+| `pnpm lint`       | Lint with ESLint                           |
+| `pnpm lint:fix`   | Lint and auto-fix                          |
 
 Prisma: `pnpm prisma migrate dev` applies/creates migrations, `pnpm prisma
 generate` regenerates the typed client.

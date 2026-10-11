@@ -27,9 +27,9 @@ List all projects, newest first.
 
 Create a project.
 
-| Field  | Type   | Rules            |
-| ------ | ------ | ---------------- |
-| `name` | string | required, 1–120  |
+| Field  | Type   | Rules           |
+| ------ | ------ | --------------- |
+| `name` | string | required, 1–120 |
 
 Returns `201` with the created project DTO.
 
@@ -39,10 +39,10 @@ Returns `201` with the created project DTO.
 
 List tasks, newest first. Optional query filters:
 
-| Query       | Type                            | Notes            |
-| ----------- | ------------------------------- | ---------------- |
-| `projectId` | string                          | filter by project|
-| `status`    | `todo` \| `in_progress` \| `done` | filter by status |
+| Query       | Type                              | Notes             |
+| ----------- | --------------------------------- | ----------------- |
+| `projectId` | string                            | filter by project |
+| `status`    | `todo` \| `in_progress` \| `done` | filter by status  |
 
 ```json
 {
@@ -65,14 +65,35 @@ List tasks, newest first. Optional query filters:
 
 Create a task.
 
-| Field         | Type                              | Rules              |
-| ------------- | --------------------------------- | ------------------ |
-| `title`       | string                            | required, 1–200    |
-| `description` | string                            | optional, ≤ 2000   |
-| `status`      | `todo` \| `in_progress` \| `done` | optional (`todo`)  |
-| `projectId`   | string                            | required           |
+| Field         | Type                              | Rules             |
+| ------------- | --------------------------------- | ----------------- |
+| `title`       | string                            | required, 1–200   |
+| `description` | string                            | optional, ≤ 2000  |
+| `status`      | `todo` \| `in_progress` \| `done` | optional (`todo`) |
+| `projectId`   | string                            | required          |
 
 Returns `201` with the created task DTO.
+
+### `GET /v1/tasks/:id`
+
+Fetch a single task by id.
+
+```json
+{
+  "data": {
+    "id": "…",
+    "title": "…",
+    "description": null,
+    "status": "todo",
+    "projectId": "…",
+    "completedAt": null,
+    "createdAt": "…",
+    "updatedAt": "…"
+  }
+}
+```
+
+Returns `404` if no task with that id exists.
 
 ## Comments
 
@@ -84,9 +105,9 @@ List comments for a task, oldest first. `taskId` is required.
 
 Create a comment.
 
-| Field    | Type   | Rules           |
-| -------- | ------ | --------------- |
-| `taskId` | string | required        |
-| `body`   | string | required, 1–2000|
+| Field    | Type   | Rules            |
+| -------- | ------ | ---------------- |
+| `taskId` | string | required         |
+| `body`   | string | required, 1–2000 |
 
 Returns `201` with the created comment DTO.

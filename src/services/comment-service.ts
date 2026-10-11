@@ -1,8 +1,5 @@
 import type { Comment } from '@prisma/client';
-import {
-  createComment,
-  findCommentsByTask,
-} from '../db/comments.repo';
+import { createComment, findCommentsByTask } from '../db/comments.repo';
 
 /** Comment business logic — pure functions, no req/res. */
 

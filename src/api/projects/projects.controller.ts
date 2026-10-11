@@ -1,9 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 import { badRequest } from '../../lib/app-error';
-import {
-  createNewProject,
-  listProjects,
-} from '../../services/project-service';
+import { createNewProject, listProjects } from '../../services/project-service';
 import { toProjectDto } from './projects.dto';
 import { createProjectBodySchema } from './projects.schema';
 
