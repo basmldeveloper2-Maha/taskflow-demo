@@ -67,6 +67,13 @@ describe('GET /v1/tasks/:id', () => {
 
     expect(res.status).toBe(404);
   });
+
+  it('returns 400 when the id is too long', async () => {
+    const res = await request(app).get(`/v1/tasks/${'a'.repeat(65)}`);
+
+    expect(res.status).toBe(400);
+    expect(mockedRepo.findTaskById).not.toHaveBeenCalled();
+  });
 });
 
 describe('POST /v1/tasks', () => {

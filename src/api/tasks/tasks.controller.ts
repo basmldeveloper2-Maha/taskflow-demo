@@ -6,7 +6,11 @@ import {
   listTasks,
 } from '../../services/task-service';
 import { toTaskDto } from './tasks.dto';
-import { createTaskBodySchema, listTasksQuerySchema } from './tasks.schema';
+import {
+  createTaskBodySchema,
+  listTasksQuerySchema,
+  taskIdParamsSchema,
+} from './tasks.schema';
 
 /**
  * Thin controllers: validate input with Zod at the top, delegate to the
@@ -37,7 +41,12 @@ export const getTask = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const task = await getTaskById(req.params.id);
+    const parsed = taskIdParamsSchema.safeParse(req.params);
+    if (!parsed.success) {
+      throw badRequest(parsed.error.issues[0]?.message ?? 'Invalid id');
+    }
+
+    const task = await getTaskById(parsed.data.id);
     res.json({ data: toTaskDto(task) });
   } catch (error) {
     next(error);
