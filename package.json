@@ -1,19 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "taskflow-demo",
-  "version": "1.0.0",
-  "description": "TaskFlow — a simple task manager frontend app used for Claude Code training demos",
-  "scripts": {
-    "test": "jest --verbose",
-    "test:watch": "jest --watch"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "testMatch": ["**/tests/**/*.test.js"]
-  },
-  "devDependencies": {
-    "jest": "^29.7.0"
-=======
   "name": "taskflow-api",
   "version": "0.1.0",
   "private": true,
@@ -60,6 +45,5 @@
     "ts-node": "10.9.2",
     "tsx": "4.7.1",
     "typescript": "5.4.3"
->>>>>>> 424ea09717d14a6a2c473929dc2049dff6a8e844
   }
 }
