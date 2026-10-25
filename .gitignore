@@ -1,5 +1,13 @@
 node_modules/
+<<<<<<< HEAD
 .DS_Store
 Thumbs.db
 coverage/
 *.log
+=======
+dist/
+coverage/
+.env
+*.log
+.DS_Store
+>>>>>>> 424ea09717d14a6a2c473929dc2049dff6a8e844
